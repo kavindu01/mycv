@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kavindu Perera</title>
+<meta name="description" content="Kavindu Perera — Network Engineer and IT Specialist in Melbourne, VIC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: mission-control dark. Deep-space navy, one electric blue, wide-tracked uppercase headings; starfield + network orbit in the hero, sections read like telemetry blocks. Single committed dark look in every theme. */
+:root {
+  --bg: #04070D;
+  --surface: #0A111D;
+  --fg: #E9EFF8;
+  --muted: #8796AD;
+  --line: #19243A;
+  --accent: #4C8DFF;     /* electric blue */
+  --accent-soft: #0E1F3D;
+  --ok: #5ED4FF;         /* link-up cyan */
+  --glow: #1A4FB8;
+  --font-display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Barlow", "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.6; font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 980px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+p { margin: 0; }
+.mono { font-family: var(--font-mono); }
+
+/* Top bar */
+.top { border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-block: 16px; }
+.brand { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.brand b { color: var(--fg); font-weight: 500; }
+.nav { display: flex; flex-wrap: wrap; gap: 4px 22px; font-family: var(--font-display); font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: .14em; }
+.nav a { text-decoration: none; color: var(--muted); }
+.nav a:hover { color: var(--fg); }
+
+/* Hero */
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 48px; align-items: end; padding-block: 110px 80px; }
+.status { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.led { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 22%, transparent); }
+@media (prefers-reduced-motion: no-preference) { .led { animation: blink 2.4s ease-in-out infinite; } }
+@keyframes blink { 50% { opacity: .35; } }
+.hero h1 { font-size: clamp(56px, 10.5vw, 112px); font-weight: 600; line-height: .9; letter-spacing: .02em; text-transform: uppercase; }
+.hero h1 span { color: var(--accent); }
+.role { font-family: var(--font-display); font-weight: 500; font-size: clamp(17px, 2vw, 21px); margin-top: 20px; text-transform: uppercase; letter-spacing: .22em; color: var(--accent); }
+.lede { color: var(--muted); max-width: 56ch; margin-top: 16px; }
+
+.cli {
+  background: color-mix(in srgb, var(--surface) 82%, transparent); border: 1px solid var(--line); border-radius: 4px;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  font-family: var(--font-mono); font-size: 13px; line-height: 1.75; overflow: hidden; min-width: 0;
+}
+.cli-bar { display: flex; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 12px; align-items: center; }
+.cli-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); display: inline-block; }
+.cli-bar span { margin-left: 8px; }
+.cli-body { padding: 14px 16px 16px; overflow-x: auto; }
+.cli-body .p { color: var(--accent); }
+.cli-body dl { display: grid; grid-template-columns: max-content 1fr; gap: 0 14px; margin: 8px 0 0; }
+.cli-body dt { color: var(--muted); }
+.cli-body dd { margin: 0; }
+
+/* Sections */
+section { border-top: 1px solid var(--line); }
+section .wrap { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; padding-block: 56px; }
+.label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding-top: 6px; }
+.label b { display: block; color: var(--accent); font-weight: 500; letter-spacing: 0; text-transform: none; font-size: 13px; margin-bottom: 4px; }
+.body { min-width: 0; display: grid; gap: 28px; }
+.about p { font-size: 18px; max-width: 62ch; }
+.figs { display: flex; flex-wrap: wrap; gap: 12px 36px; }
+.fig { display: grid; }
+.fig strong { font-family: var(--font-display); font-size: 40px; font-weight: 600; letter-spacing: .02em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.fig small { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .12em; }
+
+/* Experience */
+.job { display: grid; gap: 10px; }
+.job-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+.job h3 { font-size: 24px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+.job .org { color: var(--muted); font-weight: 500; letter-spacing: .05em; }
+.dates { font-family: var(--font-mono); font-size: 13px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.now { color: var(--accent); }
+ul.pts { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; max-width: 70ch; }
+ul.pts li { position: relative; padding-left: 20px; }
+ul.pts li::before { content: "›"; position: absolute; left: 2px; color: var(--accent); font-family: var(--font-mono); }
+.job + .job { border-top: 1px dashed var(--line); padding-top: 28px; }
+
+/* Projects */
+.projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.proj { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 20px; display: grid; gap: 8px; align-content: start; }
+.proj .where { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.proj h3 { font-size: 21px; font-weight: 600; line-height: 1.2; text-transform: uppercase; letter-spacing: .04em; }
+.proj p { color: var(--muted); font-size: 15px; }
+.proj.wide { grid-column: 1 / -1; border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.tag { display: inline-block; font-family: var(--font-mono); font-size: 11px; color: var(--accent); background: var(--accent-soft); padding: 2px 8px; border-radius: 4px; justify-self: start; }
+
+/* Skills */
+.skills { display: grid; gap: 18px; }
+.skill-row { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 12px; align-items: start; }
+.skill-row h3 { font-family: var(--font-mono); font-size: 13px; font-weight: 500; color: var(--muted); padding-top: 4px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 14px; border: 1px solid var(--line); background: var(--surface); padding: 4px 12px; border-radius: 2px; }
+
+/* Education */
+.edu { display: grid; gap: 22px; }
+.edu-item { display: grid; gap: 4px; }
+.edu-item h3 { font-size: 22px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.edu-item p { color: var(--muted); font-size: 15px; }
+.certs { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.certs li { font-size: 15px; }
+.certs li span { color: var(--muted); }
+
+/* Contact */
+.contact h2 { font-size: clamp(36px, 6vw, 60px); font-weight: 600; letter-spacing: .03em; line-height: 1; text-transform: uppercase; }
+.contact .lede { margin-top: 10px; }
+.lines { display: grid; gap: 10px; }
+.line { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 14px 16px; border: 1px solid var(--line); background: var(--surface); border-radius: 4px; }
+.line .k { font-family: var(--font-mono); font-size: 12px; color: var(--muted); width: 70px; }
+.line .v { font-family: var(--font-mono); font-size: 15px; user-select: all; min-width: 0; overflow-wrap: anywhere; flex: 1; }
+.copy { font: 600 12px var(--font-display); text-transform: uppercase; letter-spacing: .16em; color: var(--fg); background: transparent; border: 1px solid var(--fg); border-radius: 0; padding: 7px 16px; cursor: pointer; transition: background .2s, color .2s; }
+.copy:hover { background: var(--fg); color: var(--bg); }
+
+/* ---------- Network animations ---------- */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+.hero::before { /* planet limb glowing at the bottom edge */
+  content: ""; position: absolute; left: -20%; right: -20%; bottom: -78%; height: 100%; z-index: 0; pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--glow) 55%, transparent) 0%, transparent 62%);
+  box-shadow: 0 -1px 0 0 color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.hero .wrap { position: relative; z-index: 1; }
+#topo {
+  position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
+  -webkit-mask-image: linear-gradient(100deg, rgba(0,0,0,.4) 18%, #000 60%);
+          mask-image: linear-gradient(100deg, rgba(0,0,0,.4) 18%, #000 60%);
+}
+.top { position: relative; z-index: 2; }
+.top .wrap { padding-block: 20px; }
+
+/* terminal: live ping output */
+#cli-live { min-height: calc(13px * 1.75 * 6); margin-top: 10px; white-space: pre; }
+#cli-live .ok { color: var(--ok); }
+.cursor { display: inline-block; width: 7px; height: 14px; background: var(--accent); vertical-align: -2px; margin-left: 2px; }
+@media (prefers-reduced-motion: no-preference) { .cursor { animation: caret 1s steps(1) infinite; } }
+@keyframes caret { 50% { opacity: 0; } }
+
+/* packet running along each section's top cable */
+section { position: relative; }
+.pkt {
+  position: absolute; top: -2px; left: 0; width: 44px; height: 3px; border-radius: 2px; opacity: 0;
+  background: linear-gradient(90deg, transparent, var(--accent));
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  section.in .pkt { animation: travel 1.8s cubic-bezier(.45,.05,.3,1) forwards; }
+}
+@keyframes travel {
+  0% { left: 0; opacity: 0; }
+  10% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { left: calc(100% - 44px); opacity: 0; }
+}
+
+/* skill chips as switch ports: LEDs come up when the section links up */
+.chip { display: inline-flex; align-items: center; gap: 7px; transition: border-color .2s; }
+.chip::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--line); flex: none;
+  transition: background .25s, box-shadow .25s;
+}
+.chip:hover { border-color: color-mix(in srgb, var(--ok) 55%, var(--line)); }
+.chip:hover::before,
+#skills.in .chip::before { background: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 20%, transparent); }
+@media (prefers-reduced-motion: no-preference) {
+  #skills.in .chip::before { animation: linkup .35s both; animation-delay: var(--d, 0s); }
+}
+@keyframes linkup {
+  0% { background: var(--line); box-shadow: none; }
+  40% { background: var(--accent); }
+  100% { background: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 20%, transparent); }
+}
+
+/* project cards: data trace on hover */
+.proj { position: relative; overflow: hidden; transition: border-color .2s, transform .2s; }
+.proj::after {
+  content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  transform: translateX(-100%);
+}
+.proj:hover { border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); }
+@media (prefers-reduced-motion: no-preference) {
+  .proj:hover { transform: translateY(-2px); }
+  .proj:hover::after { animation: trace 1.1s ease-in-out infinite; }
+}
+@keyframes trace { to { transform: translateX(100%); } }
+
+@media (max-width: 760px) {
+  #topo { opacity: .45; -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 85%); mask-image: linear-gradient(180deg, #000 0%, transparent 85%); }
+  #cli-live { white-space: pre-wrap; }
+}
+
+/* Mission stack strip */
+.stack { background: var(--surface); border-bottom: 1px solid var(--line); }
+.stack .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 32px; padding-block: 22px; }
+.stack-label { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .18em; color: var(--muted); }
+.stack-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px 30px; flex: 1; min-width: 0; }
+.stack-list li { display: inline-flex; align-items: center; gap: 9px; font-family: var(--font-display); font-weight: 600; font-size: 18px; text-transform: uppercase; letter-spacing: .12em; color: var(--fg); }
+.stack-list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 8px color-mix(in srgb, var(--ok) 70%, transparent); flex: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .stack-list li::before { animation: ledpulse 2.8s ease-in-out infinite; }
+  .stack-list li:nth-child(2n)::before { animation-delay: .7s; }
+  .stack-list li:nth-child(3n)::before { animation-delay: 1.4s; }
+}
+@keyframes ledpulse { 50% { opacity: .35; box-shadow: none; } }
+
+footer { border-top: 1px solid var(--line); }
+footer .wrap { padding-block: 24px 40px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+
+@media (max-width: 760px) {
+  .hero .wrap { grid-template-columns: 1fr; gap: 32px; padding-block: 48px 40px; }
+  section .wrap { grid-template-columns: 1fr; gap: 16px; padding-block: 40px; }
+  .projects { grid-template-columns: 1fr; }
+  .skill-row { grid-template-columns: 1fr; gap: 6px; }
+}
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><b>kavindu-perera</b>#</div>
+    <nav class="nav" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+      <a href="https://www.linkedin.com/in/kavinduperera/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <canvas id="topo" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div>
+        <div class="status"><span class="led" aria-hidden="true"></span>Open to network engineering roles · Melbourne</div>
+        <h1>Kavindu<br>Perera<span>.</span></h1>
+        <p class="role">Network Engineer &amp; IT Specialist</p>
+        <p class="lede">I configure, secure and keep running the networks that schools and small businesses depend on, from Meraki switch rollouts to state-wide NAPLAN exam days.</p>
+      </div>
+      <div class="cli" aria-label="Summary">
+        <div class="cli-bar"><i></i><i></i><i></i><span>ssh kavindu@melbourne</span></div>
+        <div class="cli-body">
+          <div><span class="p">kavindu#</span> show version</div>
+          <dl>
+            <dt>role</dt><dd>Network Engineer</dd>
+            <dt>uptime</dt><dd>3+ years in the field</dd>
+            <dt>location</dt><dd>Melbourne, VIC</dd>
+            <dt>degree</dt><dd>B. Computer Systems (Cybersecurity)</dd>
+            <dt>stack</dt><dd>Meraki · VLAN · VMware · AD</dd>
+            <dt>lang</dt><dd>English, Sinhala</dd>
+          </dl>
+          <div id="cli-live" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stack" aria-label="Core platforms">
+    <div class="wrap">
+      <span class="stack-label">Mission stack</span>
+      <ul class="stack-list">
+        <li>Splunk</li>
+        <li>ELK Stack</li>
+        <li>VMware vSphere</li>
+        <li>Hyper-V</li>
+        <li>Cisco Meraki</li>
+        <li>AWS</li>
+        <li>Windows Server</li>
+        <li>Active Directory</li>
+      </ul>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="label"><b>about</b>Profile</div>
+      <div class="body about">
+        <p>Results-driven network engineer with more than three years of hands-on experience in network administration, cybersecurity and enterprise IT infrastructure across educational and commercial environments in Melbourne. I configure and troubleshoot complex hardware, including Meraki switches, firewalls and servers, with a focus on uptime and a smooth experience for the people using it.</p>
+        <div class="figs">
+          <div class="fig"><strong>3+ yrs</strong><small>hands-on network &amp; infrastructure</small></div>
+          <div class="fig"><strong>99%+</strong><small>uptime for critical school systems</small></div>
+          <div class="fig"><strong>0</strong><small>downtime during NAPLAN sessions</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="label"><b>experience</b>Work history</div>
+      <div class="body">
+        <article class="job">
+          <div class="job-head">
+            <h3>Specialist Technician <span class="org">· JB Hi-Fi, School Technology Solutions</span></h3>
+            <span class="dates">Dec 2023 – <span class="now">Present</span></span>
+          </div>
+          <ul class="pts">
+            <li>Deployed and administered server and network infrastructure across multiple Victorian school environments, keeping critical systems including NAPLAN examinations above 99% uptime.</li>
+            <li>Configured and managed routing, NAT, VLAN, DNS and DHCP across complex multi-site school networks, reducing incidents through proactive monitoring.</li>
+            <li>Administered VMware and Hyper-V virtualisation, optimising resource allocation and minimising downtime for staff and students.</li>
+            <li>Installed, configured and troubleshot firewalls, managed switches and wireless infrastructure, improving reliability and security posture.</li>
+            <li>Worked with cross-functional teams to deliver solutions aligned with Department of Education standards and compliance requirements.</li>
+          </ul>
+        </article>
+        <article class="job">
+          <div class="job-head">
+            <h3>Field Engineer <span class="org">· XnetIT</span></h3>
+            <span class="dates">Jul 2022 – <span class="now">Present</span></span>
+          </div>
+          <ul class="pts">
+            <li>Delivered end-to-end IT support and infrastructure for a diverse portfolio of SME clients, from network configuration to server administration.</li>
+            <li>Led full-lifecycle Meraki switch installations: scoping, procurement, configuration, testing and handover.</li>
+            <li>Supported offshore engineers through large-scale incidents with structured troubleshooting, minimising operational disruption.</li>
+            <li>Gathered and analysed network performance data to inform long-term IT planning and client decisions.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="label"><b>projects</b>Selected work</div>
+      <div class="body">
+        <div class="projects">
+          <article class="proj wide">
+            <span class="where">Victorian Department of Education · via JB Hi-Fi</span>
+            <h3>NAPLAN Online Examination Deployment</h3>
+            <p>Led technical deployment and live support for the digital NAPLAN rollout across Victorian schools. Pre-deployment testing and network validation delivered zero downtime during exam sessions.</p>
+            <span class="tag">deployment · network validation</span>
+          </article>
+          <article class="proj">
+            <span class="where">Box Hill Institute</span>
+            <h3>Security Monitoring Efficiency Testing</h3>
+            <p>Benchmarked Splunk against the ELK Stack on detection accuracy, alert latency and resource use, and recommended a tooling configuration for academic network monitoring.</p>
+            <span class="tag">Splunk · ELK</span>
+          </article>
+          <article class="proj">
+            <span class="where">Box Hill Institute</span>
+            <h3>Active Directory Domain Implementation</h3>
+            <p>Designed and built an AD domain with user and group policy management, DNS integration and security baseline hardening.</p>
+            <span class="tag">Windows Server · AD · GPO</span>
+          </article>
+          <article class="proj">
+            <span class="where">Box Hill Institute</span>
+            <h3>Linux Network Services &amp; Firewalling</h3>
+            <p>Configured DNS, DHCP and routing on Linux and enforced segmentation and access control with UFW and iptables rules.</p>
+            <span class="tag">Linux · iptables · UFW</span>
+          </article>
+          <article class="proj">
+            <span class="where">Box Hill Institute</span>
+            <h3>Online Bookstore Web App</h3>
+            <p>Full-stack application with product search, user authentication and a MySQL relational backend.</p>
+            <span class="tag">PHP · JavaScript · MySQL</span>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="label"><b>skills</b>Toolkit</div>
+      <div class="body skills">
+        <div class="skill-row"><h3>networking</h3><div class="chips"><span class="chip">Routing &amp; Switching</span><span class="chip">VLANs &amp; NAT</span><span class="chip">DNS &amp; DHCP</span><span class="chip">TCP/IP</span><span class="chip">Firewall Management</span><span class="chip">Cisco Meraki</span><span class="chip">Wireless Infrastructure</span></div></div>
+        <div class="skill-row"><h3>security</h3><div class="chips"><span class="chip">Penetration Testing</span><span class="chip">Splunk</span><span class="chip">ELK Stack</span><span class="chip">Vulnerability Assessment</span><span class="chip">Network Monitoring</span></div></div>
+        <div class="skill-row"><h3>virtualisation</h3><div class="chips"><span class="chip">VMware vSphere</span><span class="chip">Hyper-V</span><span class="chip">Citrix</span></div></div>
+        <div class="skill-row"><h3>cloud &amp; servers</h3><div class="chips"><span class="chip">AWS</span><span class="chip">Windows Server</span><span class="chip">Active Directory</span><span class="chip">Oracle</span><span class="chip">MySQL</span></div></div>
+        <div class="skill-row"><h3>development</h3><div class="chips"><span class="chip">Python</span><span class="chip">PHP</span><span class="chip">JavaScript</span><span class="chip">HTML</span><span class="chip">CSS</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="wrap">
+      <div class="label"><b>education</b>Study &amp; certificates</div>
+      <div class="body edu">
+        <div class="edu-item">
+          <span class="dates">Graduated Jun 2023</span>
+          <h3>Bachelor of Computer Systems (Cybersecurity)</h3>
+          <p>Box Hill Institute, Melbourne VIC · Network Security, Penetration Testing, Linux/Unix Systems, Active Directory, Security Monitoring (Splunk &amp; ELK)</p>
+        </div>
+        <div class="edu-item">
+          <span class="dates">Completed Dec 2019</span>
+          <h3>Foundation in Internet Technologies</h3>
+          <p>Australian College of Business &amp; Technology, Colombo</p>
+        </div>
+        <div class="edu-item">
+          <h3 style="font-size:16px">Certifications</h3>
+          <ul class="certs">
+            <li>Google Social Media Marketing</li>
+            <li>Computing in Python I <span>· Georgia Tech (edX)</span></li>
+            <li>Procedural Programming <span>· Georgia Tech (edX)</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div class="label"><b>contact</b>Get in touch</div>
+      <div class="body">
+        <div>
+          <h2>Ready for launch.</h2>
+          <p class="lede">Available for network engineering and infrastructure roles in Melbourne.</p>
+        </div>
+        <div class="lines">
+          <div class="line"><span class="k">email</span><span class="v" id="v-email">Im01perera@gmail.com</span><button class="copy" type="button" id="c-email" data-target="v-email">Copy</button></div>
+          <div class="line"><span class="k">phone</span><span class="v" id="v-phone">+61 421 812 510</span><button class="copy" type="button" id="c-phone" data-target="v-phone">Copy</button></div>
+          <div class="line"><span class="k">linkedin</span><span class="v"><a href="https://www.linkedin.com/in/kavinduperera/" target="_blank" rel="noopener">linkedin.com/in/kavinduperera</a></span><a class="copy" href="https://www.linkedin.com/in/kavinduperera/" target="_blank" rel="noopener" style="text-decoration:none">Open</a></div>
+          <div class="line"><span class="k">based</span><span class="v">Melbourne, VIC, Australia</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© 2026 Kavindu Perera</span><span>kavindu# exit</span></div>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- 1. Hero network topology with packets ---- */
+  var cv = document.getElementById('topo');
+  var ctx = cv.getContext('2d');
+  var hero = cv.parentElement;
+  var nodes = [], edges = [], packets = [], stars = [], clock = 0, colors = {}, W = 0, H = 0, running = true, last = 0, spawnT = 0;
+
+  function readColors() {
+    var s = getComputedStyle(document.documentElement);
+    colors.line = s.getPropertyValue('--line').trim() || '#D6DCE2';
+    colors.muted = s.getPropertyValue('--muted').trim() || '#56636F';
+    colors.accent = s.getPropertyValue('--accent').trim() || '#B8650F';
+    colors.ok = s.getPropertyValue('--ok').trim() || '#2E7D4F';
+    colors.surface = s.getPropertyValue('--surface').trim() || '#0A111D';
+    colors.star = s.getPropertyValue('--fg').trim() || '#E9EFF8';
+  }
+
+  // seeded random so the layout is stable between loads
+  var seed = 7;
+  function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+
+  function build() {
+    var r = hero.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = r.width; H = r.height;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    seed = 7; nodes = []; edges = []; packets = []; stars = [];
+    var sc = Math.round(W * H / 4200);
+    for (var si = 0; si < sc; si++) {
+      stars.push({ x: rnd() * W, y: rnd() * H, r: rnd() < 0.9 ? 0.6 + rnd() * 0.5 : 1.2 + rnd() * 0.6, ph: rnd() * 6.28, sp: 0.4 + rnd() * 1.4 });
+    }
+    var count = W < 760 ? 14 : 24;
+    for (var i = 0; i < count; i++) {
+      var x = W * (W < 760 ? 0.08 + rnd() * 0.84 : 0.35 + rnd() * 0.62);
+      var y = H * (0.1 + rnd() * 0.8);
+      // roles: 0 = core router, 1 = switch, 2 = endpoint
+      var role = i < 2 ? 0 : (i < 8 ? 1 : 2);
+      nodes.push({ x: x, y: y, role: role, glow: 0 });
+    }
+    // connect each node to its 2 nearest neighbours
+    var seen = {};
+    nodes.forEach(function (a, i) {
+      var d = nodes.map(function (b, j) { return { j: j, d: (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y) }; })
+        .filter(function (o) { return o.j !== i; }).sort(function (p, q) { return p.d - q.d; });
+      for (var k = 0; k < 2; k++) {
+        var j = d[k].j, key = Math.min(i, j) + '-' + Math.max(i, j);
+        if (!seen[key]) { seen[key] = 1; edges.push([i, j]); }
+      }
+    });
+  }
+
+  function spawn() {
+    var e = edges[Math.floor(Math.random() * edges.length)];
+    var fwd = Math.random() < 0.5;
+    packets.push({ a: fwd ? e[0] : e[1], b: fwd ? e[1] : e[0], t: 0, speed: 0.35 + Math.random() * 0.4 });
+  }
+
+  function draw(dt) {
+    ctx.clearRect(0, 0, W, H);
+    clock += dt;
+    // starfield
+    ctx.fillStyle = colors.star;
+    stars.forEach(function (st) {
+      ctx.globalAlpha = 0.25 + 0.6 * Math.abs(Math.sin(st.ph + clock * st.sp));
+      ctx.beginPath(); ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2); ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    // cables
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = colors.line;
+    ctx.beginPath();
+    edges.forEach(function (e) { var a = nodes[e[0]], b = nodes[e[1]]; ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); });
+    ctx.stroke();
+
+    // packets
+    for (var i = packets.length - 1; i >= 0; i--) {
+      var p = packets[i]; p.t += p.speed * dt;
+      var a = nodes[p.a], b = nodes[p.b];
+      if (p.t >= 1) { b.glow = 1; packets.splice(i, 1); continue; }
+      var x = a.x + (b.x - a.x) * p.t, y = a.y + (b.y - a.y) * p.t;
+      var t0 = Math.max(0, p.t - 0.12);
+      var g = ctx.createLinearGradient(a.x + (b.x - a.x) * t0, a.y + (b.y - a.y) * t0, x, y);
+      g.addColorStop(0, 'transparent'); g.addColorStop(1, colors.accent);
+      ctx.strokeStyle = g; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(a.x + (b.x - a.x) * t0, a.y + (b.y - a.y) * t0); ctx.lineTo(x, y); ctx.stroke();
+      ctx.fillStyle = colors.accent;
+      ctx.beginPath(); ctx.arc(x, y, 2.4, 0, Math.PI * 2); ctx.fill();
+    }
+
+    // nodes
+    nodes.forEach(function (n) {
+      n.glow = Math.max(0, n.glow - dt * 1.6);
+      if (n.glow > 0) {
+        ctx.globalAlpha = n.glow * 0.35; ctx.fillStyle = colors.ok;
+        ctx.beginPath(); ctx.arc(n.x, n.y, 6 + (1 - n.glow) * 10, 0, Math.PI * 2); ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+      ctx.fillStyle = colors.surface;
+      ctx.strokeStyle = n.role === 0 ? colors.accent : colors.muted;
+      ctx.lineWidth = 1.25;
+      if (n.role === 0) {           // router: circle with cross
+        ctx.beginPath(); ctx.arc(n.x, n.y, 7, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(n.x - 4, n.y); ctx.lineTo(n.x + 4, n.y); ctx.moveTo(n.x, n.y - 4); ctx.lineTo(n.x, n.y + 4); ctx.stroke();
+      } else if (n.role === 1) {    // switch: rectangle with port dots
+        ctx.beginPath(); ctx.rect(n.x - 8, n.y - 4, 16, 8); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = n.glow > 0 ? colors.ok : colors.muted;
+        for (var k = -1; k <= 1; k++) { ctx.fillRect(n.x + k * 4 - 1, n.y - 1, 2, 2); }
+      } else {                      // endpoint
+        ctx.beginPath(); ctx.arc(n.x, n.y, 3, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      }
+    });
+  }
+
+  var rafId = null;
+  function loop(ts) {
+    var dt = last ? Math.min((ts - last) / 1000, 0.05) : 0; last = ts;
+    spawnT -= dt;
+    if (spawnT <= 0 && packets.length < 14) { spawn(); spawnT = 0.18 + Math.random() * 0.3; }
+    draw(dt);
+    rafId = requestAnimationFrame(loop);
+  }
+
+  function start() { if (reduce || rafId !== null) return; last = 0; rafId = requestAnimationFrame(loop); }
+  function stop() { if (rafId !== null) cancelAnimationFrame(rafId); rafId = null; last = 0; }
+
+  readColors(); build();
+  if (reduce) { draw(0); } else { start(); }
+
+  var rt;
+  window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { build(); if (reduce) draw(0); }, 150); });
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  var recolor = function () { readColors(); if (reduce) draw(0); };
+  if (mq.addEventListener) mq.addEventListener('change', recolor);
+  new MutationObserver(recolor).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { es[0].isIntersecting ? start() : stop(); }).observe(hero);
+  }
+  document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+
+  /* ---- 2. Terminal: ping after "show version" ---- */
+  var live = document.getElementById('cli-live');
+  var host = 'opportunities.melbourne';
+  var script = [
+    { cmd: 'ping -c 3 ' + host },
+    { out: '64 bytes from ' + host + ': icmp_seq=1 ttl=64 time=0.9 ms' },
+    { out: '64 bytes from ' + host + ': icmp_seq=2 ttl=64 time=0.8 ms' },
+    { out: '64 bytes from ' + host + ': icmp_seq=3 ttl=64 time=0.8 ms' },
+    { ok: '3 packets transmitted, 3 received, 0% packet loss' },
+    { prompt: true }
+  ];
+  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+  function renderAll() {
+    live.innerHTML = script.map(function (l) {
+      if (l.cmd) return '<div><span class="p">kavindu#</span> ' + esc(l.cmd) + '</div>';
+      if (l.out) return '<div>' + esc(l.out) + '</div>';
+      if (l.ok) return '<div class="ok">' + esc(l.ok) + '</div>';
+      return '<div><span class="p">kavindu#</span> <span class="cursor"></span></div>';
+    }).join('');
+  }
+  if (reduce) { renderAll(); }
+  else {
+    var line = document.createElement('div');
+    line.innerHTML = '<span class="p">kavindu#</span> <span class="typed"></span><span class="cursor"></span>';
+    live.appendChild(line);
+    var typed = line.querySelector('.typed'), i = 0, cmd = script[0].cmd;
+    setTimeout(function typeNext() {
+      if (i < cmd.length) { typed.textContent += cmd[i++]; setTimeout(typeNext, 45 + Math.random() * 50); return; }
+      line.querySelector('.cursor').remove();
+      var n = 1;
+      (function outNext() {
+        if (n >= script.length) return;
+        var l = script[n++], d = document.createElement('div');
+        if (l.out) d.textContent = l.out;
+        else if (l.ok) { d.className = 'ok'; d.textContent = l.ok; }
+        else d.innerHTML = '<span class="p">kavindu#</span> <span class="cursor"></span>';
+        live.appendChild(d);
+        setTimeout(outNext, l.out ? 520 : 300);
+      })();
+    }, 900);
+  }
+
+  /* ---- 3. Sections link up as they scroll into view ---- */
+  var sections = document.querySelectorAll('main section');
+  sections.forEach(function (s) { var p = document.createElement('span'); p.className = 'pkt'; p.setAttribute('aria-hidden', 'true'); s.prepend(p); });
+  document.querySelectorAll('#skills .chip').forEach(function (c, k) { c.style.setProperty('--d', (0.25 + k * 0.05) + 's'); });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.2 });
+    sections.forEach(function (s) { io.observe(s); });
+  } else {
+    sections.forEach(function (s) { s.classList.add('in'); });
+  }
+})();
+
+document.querySelectorAll('.copy').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var el = document.getElementById(btn.dataset.target);
+    var text = el.textContent.trim();
+    var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1600); };
+    var fallback = function () {
+      var r = document.createRange(); r.selectNodeContents(el);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'Selected';
+      setTimeout(function () { btn.textContent = 'Copy'; }, 1600);
+    };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } else { fallback(); }
+    } catch (e) { fallback(); }
+  });
+});
+</script>
+</body>
+</html>
