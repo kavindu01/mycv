@@ -9,21 +9,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: mission-control dark. Deep-space navy, one electric blue, wide-tracked uppercase headings; starfield + network orbit in the hero, sections read like telemetry blocks. Single committed dark look in every theme. */
+/* Layout: mission-control light. White background, one electric blue, wide-tracked uppercase headings; faint blue starfield + network orbit in the hero, sections read like telemetry blocks. Single committed light look in every theme. */
 :root {
-  --bg: #04070D;
-  --surface: #0A111D;
-  --fg: #E9EFF8;
-  --muted: #8796AD;
-  --line: #19243A;
-  --accent: #4C8DFF;     /* electric blue */
-  --accent-soft: #0E1F3D;
-  --ok: #5ED4FF;         /* link-up cyan */
-  --glow: #1A4FB8;
+  --bg: #FFFFFF;
+  --surface: #F4F7FC;
+  --fg: #0B1526;
+  --muted: #5A6880;
+  --line: #DCE3EE;
+  --accent: #1F5FE0;     /* electric blue */
+  --accent-soft: #E6EEFD;
+  --ok: #0A8FB8;         /* link-up cyan */
+  --glow: #9DBEFF;
+  --star: #6F9BF0;
   --font-display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
   --font-body: "Barlow", "Helvetica Neue", "Segoe UI", Arial, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }
@@ -464,8 +465,8 @@ footer .wrap { padding-block: 24px 40px; font-family: var(--font-mono); font-siz
     colors.muted = s.getPropertyValue('--muted').trim() || '#56636F';
     colors.accent = s.getPropertyValue('--accent').trim() || '#B8650F';
     colors.ok = s.getPropertyValue('--ok').trim() || '#2E7D4F';
-    colors.surface = s.getPropertyValue('--surface').trim() || '#0A111D';
-    colors.star = s.getPropertyValue('--fg').trim() || '#E9EFF8';
+    colors.surface = s.getPropertyValue('--surface').trim() || '#F4F7FC';
+    colors.star = s.getPropertyValue('--star').trim() || '#6F9BF0';
   }
 
   // seeded random so the layout is stable between loads
